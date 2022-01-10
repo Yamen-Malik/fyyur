@@ -1,0 +1,84 @@
+{% extends 'layouts/main.html' %}
+{% block title %}Fyyur{% endblock %}
+{% block content %}
+<style>
+	.recent-posts{
+		margin-left: auto;
+		margin-right: auto;
+		padding-top: 70px;
+	}
+	.artists-wrapper, .venues-wrapper{
+		text-align: center;
+		margin-bottom: 70px;
+	}
+	.artist, .venue{
+		display: inline-block;
+		border: 1px solid lightgray;
+		margin: 20px;
+		width: 45%;
+	}
+	.artist img, .venue img{
+		display: block;
+		margin-left: auto;
+  		margin-right: auto;
+		max-height: 300px;
+		max-width: auto;
+	}
+	.artist span, .venue span{
+		background-color: rgba(141, 141, 141, 0.527);
+		border-radius: 4px;
+		padding: 1px 3px;
+	}
+</style>
+<div class="row">
+	<div class="col-sm-6">
+		<h1>Fyyur 🔥</h1>
+		<p class="lead">Where musical artists meet musical venues.</p>
+		<h3>
+			<a href="/venues"><button class="btn btn-primary btn-lg">Find a venue</button></a>
+			<a href="/venues/create"><button class="btn btn-default btn-lg">Post a venue</button></a>
+		</h3>
+		<h3>
+			<a href="/artists"><button class="btn btn-primary btn-lg">Find an artist</button></a>
+			<a href="/artists/create"><button class="btn btn-default btn-lg">Post an artist</button></a>
+		</h3>
+		<p class="lead">Publicize about your show for free.</p>
+		<h3>
+			<a href="/shows/create"><button class="btn btn-default btn-lg">Post a show</button></a>
+		</h3>
+	</div>
+	<div class="col-sm-6 hidden-sm hidden-xs">
+		<img id="front-splash" src="{{ url_for('static',filename='img/front-splash.jpg') }}" alt="Front Photo of Musical Band" />
+	</div>
+</div>
+<div class="recent-posts">
+	<div class="artists-wrapper">
+		<h1>Recently Listed Artists</h1>
+		{% for artist in artists %}
+		<div class="artist">
+			<img src="{{ artist.image_link }}" alt="artist image">
+			<a href="/artists/{{ artist.id }}">
+				<h4>{{ artist.name }}</h4>
+			</a>
+			{% for genre in artist.genres %}
+			<span>{{genre}}</span>
+			{% endfor %}
+		</div>
+		{% endfor %}
+	</div>
+	<div class="venues-wrapper">
+		<h1>Recently Listed Venues</h1>
+		{% for venue in venues %}
+		<div class="venue">
+			<img src="{{ venue.image_link }}" alt="venue image">
+			<a href="/venues/{{ venue.id }}">
+				<h4>{{ venue.name }}</h4>
+			</a>
+			{% for genre in venue.genres %}
+			<span>{{genre}}</span>
+			{% endfor %}
+		</div>
+		{% endfor %}
+	</div>
+</div>
+{% endblock %}
